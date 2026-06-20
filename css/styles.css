@@ -1,0 +1,561 @@
+/* ============================================================
+ * styles.css
+ *
+ * Theming uses CSS custom properties driven by data-theme on
+ * the root element. The orange accent (#ff6200) and Poppins
+ * typography are preserved from the original design.
+ * ============================================================ */
+
+:root {
+  /* Brand */
+  --color-accent: #ff6200;
+  --color-accent-hover: #e55800;
+  --color-accent-soft: rgba(255, 98, 0, 0.12);
+  --color-accent-border: rgba(255, 98, 0, 0.4);
+
+  /* Light theme (default) */
+  --color-bg: #f4f5f7;
+  --color-surface: #ffffff;
+  --color-surface-2: #f7f8fa;
+  --color-surface-hover: #eef0f3;
+  --color-text: #1f2533;
+  --color-text-muted: #6b7280;
+  --color-border: #e3e6ec;
+  --color-shadow: 0 6px 24px rgba(15, 23, 42, 0.08);
+  --color-shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --color-shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.12);
+  --color-error: #d92d20;
+  --color-result: #1f2533;
+  --color-expression: #6b7280;
+
+  --color-number: #ffffff;
+  --color-number-text: #1f2533;
+  --color-operator: #f4f5f7;
+  --color-operator-text: #1f2533;
+  --color-function: #ffffff;
+  --color-function-text: #ff6200;
+  --color-equals-bg: #ff6200;
+  --color-equals-text: #ffffff;
+}
+
+[data-theme="dark"] {
+  --color-bg: #0f1115;
+  --color-surface: #181b22;
+  --color-surface-2: #1f232b;
+  --color-surface-hover: #262b34;
+  --color-text: #f3f4f6;
+  --color-text-muted: #9ca3af;
+  --color-border: #2a2f3a;
+  --color-shadow: 0 6px 24px rgba(0, 0, 0, 0.4);
+  --color-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --color-shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.5);
+  --color-error: #f87171;
+  --color-result: #f9fafb;
+  --color-expression: #9ca3af;
+
+  --color-number: #1f232b;
+  --color-number-text: #f3f4f6;
+  --color-operator: #262b34;
+  --color-operator-text: #f3f4f6;
+  --color-function: #1f232b;
+  --color-function-text: #ff8a3d;
+  --color-equals-bg: #ff6200;
+  --color-equals-text: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  min-height: 100vh;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ===== App layout ===== */
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 16px;
+}
+
+.app-header {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--color-text);
+}
+
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--color-accent);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  box-shadow: var(--color-shadow-sm);
+}
+
+.app-toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.toolbar-btn {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  box-shadow: var(--color-shadow-sm);
+}
+
+.toolbar-btn:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-accent-border);
+}
+
+.toolbar-btn[aria-pressed="true"] {
+  background: var(--color-accent);
+  color: #ffffff;
+  border-color: var(--color-accent);
+}
+
+.app-main {
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 880px) {
+  .app-main {
+    grid-template-columns: minmax(0, 1fr) 280px;
+    align-items: start;
+  }
+}
+
+/* ===== Calculator card ===== */
+#calculator-container {
+  background: var(--color-surface);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: var(--color-shadow-lg);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* ===== Display ===== */
+#display {
+  background: var(--color-surface-2);
+  border-radius: 12px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  min-height: 96px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  position: relative;
+}
+
+.display-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+#expression {
+  font-size: 16px;
+  color: var(--color-expression);
+  text-align: right;
+  word-break: break-all;
+  white-space: pre-wrap;
+  min-height: 22px;
+  max-height: 60px;
+  overflow-y: auto;
+  font-weight: 400;
+}
+
+#result {
+  font-size: 32px;
+  color: var(--color-result);
+  text-align: right;
+  font-weight: 500;
+  word-break: break-all;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+
+#result.error {
+  color: var(--color-error);
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.copy-btn {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-bottom: 4px;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.copy-btn:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-color: var(--color-accent-border);
+}
+
+/* ===== Sections ===== */
+#calculator-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+#functions-button {
+  width: 100%;
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+#functions-button::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-right: 2px solid var(--color-text-muted);
+  border-bottom: 2px solid var(--color-text-muted);
+  transform: rotate(45deg);
+  margin-right: 4px;
+  transition: transform 0.2s ease;
+}
+
+#functions-button[aria-expanded="true"]::after {
+  transform: rotate(-135deg);
+}
+
+#functions-button:hover {
+  border-color: var(--color-accent-border);
+}
+
+#scientific-functions-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
+}
+
+#scientific-functions-wrapper.open {
+  max-height: 360px;
+}
+
+#scientific-functions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  padding-top: 8px;
+}
+
+@media (min-width: 520px) {
+  #scientific-functions {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* ===== Number/operator grid ===== */
+#number-operators {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#utility-buttons {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+}
+
+#number-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+/* ===== Generic calc button ===== */
+.calc-btn {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 14px 8px;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  background: var(--color-number);
+  color: var(--color-number-text);
+  box-shadow: var(--color-shadow-sm);
+  transition: transform 0.05s ease, background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  min-height: 48px;
+}
+
+.calc-btn:hover {
+  border-color: var(--color-accent-border);
+}
+
+.calc-btn:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.calc-btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.calc-btn.operator {
+  background: var(--color-operator);
+  color: var(--color-operator-text);
+}
+
+.calc-btn.func {
+  background: var(--color-function);
+  color: var(--color-function-text);
+  font-size: 13px;
+  font-weight: 500;
+  border-color: var(--color-accent-border);
+}
+
+.calc-btn.func:hover {
+  background: var(--color-accent-soft);
+}
+
+.calc-btn.equals {
+  background: var(--color-equals-bg);
+  color: var(--color-equals-text);
+  border-color: var(--color-equals-bg);
+  grid-column: span 1;
+}
+
+.calc-btn.equals:hover {
+  background: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+}
+
+.calc-btn.memory {
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+/* ===== History panel ===== */
+.history-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: var(--color-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  max-height: 540px;
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.history-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.history-clear {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.history-clear:hover {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  border-color: var(--color-accent-border);
+}
+
+.history-list {
+  overflow-y: auto;
+  padding: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.history-empty {
+  padding: 24px 16px;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+.history-entry {
+  appearance: none;
+  text-align: left;
+  border: 1px solid transparent;
+  background: var(--color-surface-2);
+  border-radius: 8px;
+  padding: 10px 12px;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--color-text);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.history-entry:hover {
+  background: var(--color-accent-soft);
+  border-color: var(--color-accent-border);
+}
+
+.history-expression {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.history-result {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-accent);
+}
+
+/* ===== Mobile history toggle ===== */
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 879px) {
+  .app-main {
+    grid-template-columns: 1fr;
+  }
+  .history-panel {
+    display: none;
+  }
+  .history-panel.open {
+    display: flex;
+  }
+  .mobile-only {
+    display: inline-flex;
+  }
+}
+
+/* ===== App footer ===== */
+.app-footer {
+  width: 100%;
+  max-width: 880px;
+  margin: 16px auto 0;
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.app-footer a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.app-footer a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Scrollbar styling ===== */
+#expression::-webkit-scrollbar,
+.history-list::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+#expression::-webkit-scrollbar-thumb,
+.history-list::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+#expression::-webkit-scrollbar-thumb:hover,
+.history-list::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent);
+}

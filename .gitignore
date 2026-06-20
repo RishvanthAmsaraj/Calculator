@@ -1,0 +1,38 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-project
+*.sublime-workspace
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependencies (none currently, but guard against future additions)
+node_modules/
+bower_components/
+
+# Build artifacts
+dist/
+build/
+*.min.js
+*.min.css
+
+# Environment and local-only files
+.env
+.env.local
+.env.*.local
+
+# Coverage
+coverage/
+.nyc_output/

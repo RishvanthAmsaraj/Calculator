@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A professional scientific calculator with safe expression parsing, history, and dark mode.">
+  <title>CalculatorRA — Scientific Calculator</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">C</div>
+        <span>CalculatorRA</span>
+      </div>
+      <div class="app-toolbar" role="toolbar" aria-label="Calculator preferences">
+        <button id="angle-toggle" class="toolbar-btn" type="button" aria-pressed="false" title="Toggle angle units">RAD</button>
+        <button id="sci-toggle" class="toolbar-btn" type="button" aria-pressed="false" title="Toggle scientific notation">FIX</button>
+        <button id="history-toggle" class="toolbar-btn mobile-only" type="button" aria-expanded="false" aria-controls="history-panel" title="Show history">History</button>
+        <button id="theme-toggle" class="toolbar-btn" type="button" data-theme-toggle aria-label="Toggle dark mode" title="Toggle dark mode">Theme</button>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section id="calculator-container" aria-label="Calculator">
+        <div id="display" aria-live="polite">
+          <button id="copy-btn" class="copy-btn" type="button" data-action="copy" title="Copy result">Copy</button>
+          <div class="display-row">
+            <div id="expression" aria-label="Current expression"></div>
+          </div>
+          <div class="display-row">
+            <div id="result" aria-label="Result">0</div>
+          </div>
+        </div>
+
+        <div id="calculator-sections">
+          <div id="scientific-functions-container">
+            <button id="functions-button" class="calc-btn operator" type="button" aria-expanded="false" aria-controls="scientific-functions-wrapper">Scientific Functions</button>
+            <div id="scientific-functions-wrapper">
+              <div id="scientific-functions">
+                <button class="calc-btn func" type="button" data-value="sin">sin</button>
+                <button class="calc-btn func" type="button" data-value="cos">cos</button>
+                <button class="calc-btn func" type="button" data-value="tan">tan</button>
+                <button class="calc-btn func" type="button" data-value="sec">sec</button>
+                <button class="calc-btn func" type="button" data-value="csc">csc</button>
+                <button class="calc-btn func" type="button" data-value="cot">cot</button>
+                <button class="calc-btn func" type="button" data-value="asin">asin</button>
+                <button class="calc-btn func" type="button" data-value="acos">acos</button>
+                <button class="calc-btn func" type="button" data-value="atan">atan</button>
+                <button class="calc-btn func" type="button" data-value="sinh">sinh</button>
+                <button class="calc-btn func" type="button" data-value="cosh">cosh</button>
+                <button class="calc-btn func" type="button" data-value="tanh">tanh</button>
+                <button class="calc-btn func" type="button" data-value="ln">ln</button>
+                <button class="calc-btn func" type="button" data-value="log">log</button>
+                <button class="calc-btn func" type="button" data-value="sqrt">sqrt</button>
+                <button class="calc-btn func" type="button" data-value="cbrt">cbrt</button>
+                <button class="calc-btn func" type="button" data-value="1/x">1/x</button>
+                <button class="calc-btn func" type="button" data-value="x^y">x^y</button>
+                <button class="calc-btn func" type="button" data-value="e^x">e^x</button>
+                <button class="calc-btn func" type="button" data-value="10^x">10^x</button>
+                <button class="calc-btn func" type="button" data-value="x^2">x^2</button>
+                <button class="calc-btn func" type="button" data-value="n!">n!</button>
+                <button class="calc-btn func" type="button" data-value="pi">pi</button>
+                <button class="calc-btn func" type="button" data-value="e">e</button>
+                <button class="calc-btn func" type="button" data-value="abs">abs</button>
+                <button class="calc-btn func" type="button" data-value="round">round</button>
+              </div>
+            </div>
+          </div>
+
+          <div id="number-operators">
+            <div id="utility-buttons">
+              <button class="calc-btn operator" type="button" data-action="clear" aria-label="Clear all">AC</button>
+              <button class="calc-btn operator" type="button" data-action="delete" aria-label="Delete last character">DEL</button>
+              <button class="calc-btn operator" type="button" data-value="(">(</button>
+              <button class="calc-btn operator" type="button" data-value=")">)</button>
+              <button class="calc-btn operator" type="button" data-value="%">%</button>
+              <button class="calc-btn operator" type="button" data-action="toggle-sign">+/-</button>
+            </div>
+            <div id="number-grid">
+              <button class="calc-btn number" type="button" data-value="7">7</button>
+              <button class="calc-btn number" type="button" data-value="8">8</button>
+              <button class="calc-btn number" type="button" data-value="9">9</button>
+              <button class="calc-btn operator" type="button" data-value="/" aria-label="Divide">/</button>
+
+              <button class="calc-btn number" type="button" data-value="4">4</button>
+              <button class="calc-btn number" type="button" data-value="5">5</button>
+              <button class="calc-btn number" type="button" data-value="6">6</button>
+              <button class="calc-btn operator" type="button" data-value="*" aria-label="Multiply">*</button>
+
+              <button class="calc-btn number" type="button" data-value="1">1</button>
+              <button class="calc-btn number" type="button" data-value="2">2</button>
+              <button class="calc-btn number" type="button" data-value="3">3</button>
+              <button class="calc-btn operator" type="button" data-value="-" aria-label="Subtract">-</button>
+
+              <button class="calc-btn number" type="button" data-value="0">0</button>
+              <button class="calc-btn number" type="button" data-value=".">.</button>
+              <button class="calc-btn equals" type="button" data-value="=" aria-label="Equals">=</button>
+              <button class="calc-btn operator" type="button" data-value="+" aria-label="Add">+</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside id="history-panel" class="history-panel" aria-label="Calculation history">
+        <div class="history-header">
+          <div class="history-title">History</div>
+          <button id="history-clear" class="history-clear" type="button">Clear</button>
+        </div>
+        <div id="history-list" class="history-list"></div>
+      </aside>
+    </main>
+
+    <footer class="app-footer">
+      <p>Built with vanilla JavaScript. <a href="README.md">View documentation</a>.</p>
+    </footer>
+  </div>
+
+  <script src="js/math-engine.js"></script>
+  <script src="js/theme.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/calculator.js"></script>
+</body>
+</html>
